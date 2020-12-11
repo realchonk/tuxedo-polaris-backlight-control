@@ -8,8 +8,6 @@ backlight.sh <command>
 ```
 
 ```
-backlight.sh <command>
-
 Usage:
        backlight.sh help                - Show this page
        backlight.sh colors              - List available colors
