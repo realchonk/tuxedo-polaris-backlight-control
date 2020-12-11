@@ -16,7 +16,7 @@ fi
 driver="${driver}/uw_kbd_bl_color"
 
 if [ $# -eq 0 ]; then
-	echo "Usage: $0 help"
+	echo "Usage: backlight.sh help"
 	exit 1
 fi
 
@@ -28,16 +28,18 @@ fi
 for (( i=0; i<$#; i++ )); do
 	arg=${args[$i]}
 	if [ $arg = "help" ]; then
-		echo "TUXEDO Polaris Backlight Control - 0.1 - 2020-12-11"
+		echo "TUXEDO Polaris Backlight Control - 0.2 - 2020-12-11"
 		echo "By Benjamin Stürz <stuerzbenni@gmail.com>"
 		echo
-		echo "$0 <command>"
+		echo "backlight.sh <command>"
 		echo
 		echo "Usage:"
-		echo "       $0 help                - Show this page"
-		echo "       $0 colors              - List available colors"
-		echo "       $0 brightness [value]  - Get/Set brightness"
-		echo "       $0 color <color>       - Set color"
+		echo "       backlight.sh help                - Show this page"
+		echo "       backlight.sh colors              - List available colors"
+		echo "       backlight.sh brightness [value]  - Get/Set brightness"
+		echo "       backlight.sh color <color>       - Set color"
+		echo "       backlight.sh on                  - Set brightness to 200"
+		echo "       backlight.sh off                 - Set brightness to 0"
 		echo ""
 		echo "Report bugs at "
 		exit 0
@@ -46,7 +48,7 @@ for (( i=0; i<$#; i++ )); do
 		exit 0
 	elif [ $arg = "color" ]; then
 		if [ $i -eq $(($# - 1)) ]; then
-			echo "Usage: $0 color <color>"
+			echo "Usage: backlight.sh color <color>"
 			exit 1
 		else
 			color=${args[$(($i+1))]}
@@ -75,8 +77,12 @@ for (( i=0; i<$#; i++ )); do
 			fi
 			i=$(($i + 1))
 		fi
+	elif [ $arg = "off" ]; then
+		echo "0" | ${SUDO} tee "${driver}/brightness" 1> /dev/null
+	elif [ $arg = "on" ]; then
+		echo "200" | ${SUDO} tee "${driver}/brightness" 1> /dev/null
 	else
-		echo "Usage: $0 help"
+		echo "Usage: backlight.sh help"
 		exit 1
 	fi
 done
