@@ -41,7 +41,7 @@ for (( i=0; i<$#; i++ )); do
 		echo "       backlight.sh on                  - Set brightness to 200"
 		echo "       backlight.sh off                 - Set brightness to 0"
 		echo ""
-		echo "Report bugs at "
+		echo "Report bugs at https://github.com/Benni3D/tuxedo-polaris-backlight-control"
 		exit 0
 	elif [ $arg = "colors" ]; then
 		cat "${driver}/color_string"
