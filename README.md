@@ -13,6 +13,8 @@ Usage:
        backlight.sh colors              - List available colors
        backlight.sh brightness [value]  - Get/Set brightness
        backlight.sh color <color>       - Set color
+       backlight.sh on                  - Set brightness to 200
+       backlight.sh off                 - Set brightness to 0
 ```
 
 ## Requirements
