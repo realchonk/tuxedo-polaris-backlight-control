@@ -4,18 +4,18 @@ Inspired by tuxedo-backlight-control.
 
 ## Usage
 ```
-backlight.sh <command>
+tuxedo-keylight <command>
 ```
 
 ```
 Usage:
-       backlight.sh help                - Show this page
-       backlight.sh colors              - List available colors
-       backlight.sh brightness [value]  - Get/Set brightness
-       backlight.sh color <color>       - Set color
-       backlight.sh on                  - Set brightness to 200
-       backlight.sh off                 - Set brightness to 0
+       tuxedo-keylight -h                 - Show this page
+       tuxedo-keylight -C                 - List available colors
+       tuxedo-keylight -B                 - Read current brightness
+       tuxedo-keylight -b value           - Set brightness
+       tuxedo-keylight -c color           - Set color
 ```
 
 ## Requirements
 * **Arch Linux** : sudo, aur/tuxedo-keyboard
+* **Gentoo Linux**: app-laptop/tuxedo-keyboard

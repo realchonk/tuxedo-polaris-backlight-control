@@ -1,0 +1,40 @@
+#!/bin/sh
+
+print_help() {
+   echo "TUXEDO Polaris Backlight Control - 0.3 - 2021-03-23"
+   echo "By Benjamin Stürz <benni@stuerz.xyz>"
+   echo
+   echo "Usage:"
+   printf "\t$(basename $0) -h\t\t\t- Show this help\n"
+   printf "\t$(basename $0) -C\t\t\t- Read the available backlight colors\n"
+   printf "\t$(basename $0) -B\t\t\t- Read the current backlight brightness\n"
+   printf "\t$(basename $0) -c color\t\t- Set the backlight color\n"
+   printf "\t$(basename $0) -b brightness\t\t- Set the backlight brightness\n"
+   echo
+   echo "Report bugs to https://github.com/Benni3D/tuxedo-polaris-backlight-control"
+}
+
+driver="/sys/devices/platform/tuxedo_keyboard"
+[ ! -d "$driver" ] && echo "$(basename $0): tuxedo_keyboard driver not loaded." >&2 && exit 1
+driver="$driver/uw_kbd_bl_color"
+[ ! -d "$driver" ] && echo "$(basename $0): this program is only meant for TUXEDO Polaris laptops." >&2 && exit 1
+
+[ $# -eq 0 ] && echo "Usage: $(basename $0) -h" && exit 1
+
+args=$(getopt -o "CBhc:b:" -- "$@")
+[ $? -ne 0 ] && exit 1
+eval set -- "$args"
+unset args
+
+while true; do
+   case "$1" in
+   -h) print_help; shift; exit ;;
+   -C) cat "$driver/color_string"; shift; continue ;;
+   -B) cat "$driver/brightness"; shift; continue ;;
+   -c) echo "$2" | tr [a-z] [A-Z] | sudo tee "$driver/color_string" >/dev/null; shift 2; continue ;;
+   -b) echo "$2" | sudo tee "$driver/brightness" >/dev/null; shift 2; continue ;;
+   --) shift; break ;;
+   *)  echo "Usage: $(basename $0) -h"; exit 1 ;;
+   esac
+done
+
